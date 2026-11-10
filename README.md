@@ -22,11 +22,11 @@ python3 -m http.server 8080 --directory dist
 
 Open `http://localhost:8080`. A profile can be linked directly, for example `/#avatar/narasimha`. The `/` keyboard shortcut focuses search, Escape closes a profile, and arrow keys switch profile tabs.
 
-## Cloudflare Pages — deploy later
+## Cloudflare Pages
 
-No deployment is configured or triggered by this repository.
+The existing Cloudflare Git integration is connected to project `dasavathar` and automatically deploys pushes to `main`. The first website commit passed both GitHub checks and the Cloudflare deployment check. This repository adds no deployment workflow of its own.
 
-When ready, connect `jaffa944099/Mythic` in Cloudflare Pages:
+Build settings:
 
 | Setting | Value |
 | --- | --- |
