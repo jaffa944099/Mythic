@@ -22,3 +22,13 @@ test('local entrypoint assets exist and privacy does not depend on third-party s
  assert.match(html,/rel="noopener noreferrer"/);
  const app=await readFile('src/app.js','utf8');assert.doesNotMatch(app,/localStorage|document\.cookie|fetch\(/);
 });
+
+test('repository-root and source entry points resolve all local scripts, styles, and images',async()=>{
+ for(const [file,base] of [['index.html',''],['src/index.html','src/']]){
+  const html=await readFile(file,'utf8');
+  const urls=[...html.matchAll(/(?:src|href)="([^"]+)"/g)].map(m=>m[1]).filter(url=>!url.startsWith('#')&&!url.startsWith('https:'));
+  assert.ok(urls.length>=4,`${file}: expected application assets`);
+  for(const url of urls)assert.ok((await readFile(base+url)).length,`${file}: ${url}`);
+ }
+ assert.match(await readFile('_headers','utf8'),/Content-Security-Policy/);
+});

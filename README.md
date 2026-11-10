@@ -24,9 +24,9 @@ Open `http://localhost:8080`. A profile can be linked directly, for example `/#a
 
 ## Cloudflare Pages
 
-The existing Cloudflare Git integration is connected to project `dasavathar` and automatically deploys pushes to `main`. The first website commit passed both GitHub checks and the Cloudflare deployment check. This repository adds no deployment workflow of its own.
+The existing Cloudflare Git integration is connected to project `dasavathar` and automatically deploys pushes to `main`. GitHub checks and Cloudflare upload checks pass; an upload status alone does not verify the published homepage. This repository adds no deployment workflow of its own.
 
-Build settings:
+The site supports two deployment modes. With Cloudflare’s default repository-root upload, the tracked root `index.html` uses the canonical assets under `src/` and needs no build. For a clean build output, use these settings:
 
 | Setting | Value |
 | --- | --- |
@@ -41,12 +41,15 @@ The build produces a self-contained static site. No API keys, database, or envir
 
 ## Structure
 
+- `index.html`, `_headers`, `404.html` — generated root entry points for no-build hosting; refreshed by `npm run build`.
+
 - `src/data.js` — original character profiles and the two supported sequences.
 - `src/art.js` — original vector emblems.
 - `src/app.js` — gallery, filtering, modal, keyboard and URL behavior.
 - `src/styles.css` — responsive visual design.
 - `src/assets/vishnu.webp` — optimized hero artwork (about 556 KB).
-- `scripts/build.mjs` — deterministic copy to `dist/`.
+- `scripts/build.mjs` — deterministic copy to `dist/` and synchronization of the root entry points.
+- `scripts/sync-entry.mjs` — root asset-path handling; edit the canonical HTML under `src/`.
 - `tests/content.test.mjs` — collection integrity, profile completeness, and local asset checks.
 - `.github/workflows/check.yml` — runs checks on pushes and pull requests; does not deploy.
 
