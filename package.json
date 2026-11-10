@@ -1,0 +1,6 @@
+{
+  "name": "mythic-dashavatara", "version": "1.0.0", "private": true, "type": "module",
+  "description": "An illustrated, interactive guide to Vishnu's Dashavatara",
+  "scripts": {"build": "node scripts/build.mjs", "test": "node --test", "check": "node --check src/app.js && node --check src/data.js && npm test && npm run build"},
+  "engines": {"node": ">=20"}
+}
